@@ -1,0 +1,54 @@
+<html>
+<head><meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+	<title></title>
+</head>
+<body>
+    
+    <button onclick="playBackground()">play background music</button>
+    <button onclick="pauseBackground()">pause background music</button>
+    <br><br><br><br>
+    <button onclick="playTrack()">play track</button>
+    <button onclick="pauseTrack()">pause track</button>
+    <button onclick="nextTrack()">next track</button>
+
+<script>
+
+    var currentTrack = 0
+    var tracks = [
+        'https://communicationcuremgmt.com/audioFiles/d747e08d-2598-460a-a3d9-c497cfb14fce.mp3',
+        'https://communicationcuremgmt.com/audioFiles/b50b6bd4-4303-4814-a91d-c36240f4cf35.mp3',
+        'https://communicationcuremgmt.com/audioFiles/8ce0f5fc-da24-4ce6-9162-f6e82d0a7d87.mp3'
+    ]
+    
+    var backgroundAudio = new Audio('https://communicationcuremgmt.com/backgroundAudio/SilenceSL.mp3')
+    backgroundAudio.loop = true
+    
+    var trackAudio = new Audio(tracks[currentTrack])
+    
+    function playBackground() {
+        backgroundAudio.play()
+    }
+    
+    function pauseBackground() {
+        backgroundAudio.pause()
+    }
+    
+    function nextTrack() {
+        trackAudio.pause()
+        currentTrack = (currentTrack+1 > tracks.length-1) ? 0 : currentTrack+1
+        trackAudio = new Audio(tracks[currentTrack])
+        trackAudio.play()
+    }
+    
+    function playTrack() {
+        trackAudio.play()
+    }
+    
+    function pauseTrack() {
+        trackAudio.pause()
+    }
+    
+</script>
+
+</body>
+</html>
