@@ -10,17 +10,29 @@
     <button onclick="playBackground()">play background music</button>
     <button onclick="pauseBackground()">pause background music</button>
     <br><br><br>
+    <p id="track_text"></p>
     <button onclick="playTrack()">play track</button>
     <button onclick="pauseTrack()">pause track</button>
     <button onclick="nextTrack()">next track</button>
 
 <script>
 
+    var trackText = document.getElementById('track_text')
+
     var currentTrack = 0
     var tracks = [
-        load('https://communicationcuremgmt.com/audioFiles/d747e08d-2598-460a-a3d9-c497cfb14fce.mp3'),
-        load('https://communicationcuremgmt.com/audioFiles/b50b6bd4-4303-4814-a91d-c36240f4cf35.mp3'),
-        load('https://communicationcuremgmt.com/audioFiles/8ce0f5fc-da24-4ce6-9162-f6e82d0a7d87.mp3')
+        {
+            audio: load('https://communicationcuremgmt.com/audioFiles/d747e08d-2598-460a-a3d9-c497cfb14fce.mp3'),
+            text: 'At this moment, what is one thing you are very thankful for?'
+        },
+        {
+            audio: load('https://communicationcuremgmt.com/audioFiles/b50b6bd4-4303-4814-a91d-c36240f4cf35.mp3'),
+            text: 'Describe something you experienced or learned in your family growing up that you are thankful for today?'
+        },
+        {
+            audio: load('https://communicationcuremgmt.com/audioFiles/8ce0f5fc-da24-4ce6-9162-f6e82d0a7d87.mp3'),
+            text: 'What is something in your life that was painful but that you have now been able to appreciate?'
+        }
     ]
     
     var backgroundAudio = load('https://communicationcuremgmt.com/backgroundAudio/SilenceSL.mp3')
@@ -28,7 +40,7 @@
     
     function preloadTracks() {
         tracks.map(track => {
-            track.load()
+            track.audio.load()
         })
         backgroundAudio.load()
     }
@@ -64,18 +76,20 @@
     }
     
     function nextTrack() {
-        tracks[currentTrack].pause()
+        tracks[currentTrack].audio.pause()
         currentTrack = (currentTrack+1 > tracks.length-1) ? 0 : currentTrack+1
-        tracks[currentTrack].currentTime = 0
-        tracks[currentTrack].play()
+        trackText.textContent = tracks[currentTrack].text
+        tracks[currentTrack].audio.currentTime = 0
+        tracks[currentTrack].audio.play()
     }
     
     function playTrack() {
-        tracks[currentTrack].play()
+        trackText.textContent = tracks[currentTrack].text
+        tracks[currentTrack].audio.play()
     }
     
     function pauseTrack() {
-        tracks[currentTrack].pause()
+        tracks[currentTrack].audio.pause()
     }
     
 </script>
